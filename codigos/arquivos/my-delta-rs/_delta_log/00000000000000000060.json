@@ -1,0 +1,2 @@
+{"commitInfo":{"timestamp":1774312176923,"operation":"DELETE","operationParameters":{"predicate":"id = 3"},"engineInfo":"delta-rs:py-1.5.0","clientVersion":"delta-rs.py-1.5.0","readVersion":59,"operationMetrics":{"execution_time_ms":100,"num_added_files":0,"num_copied_rows":0,"num_deleted_rows":1,"num_removed_files":1,"rewrite_time_ms":0,"scan_time_ms":70}}}
+{"remove":{"path":"part-00000-abbff904-72cb-4451-9804-6feed59a1265-c000.zstd.parquet","dataChange":true,"deletionTimestamp":1774312176895,"extendedFileMetadata":true,"partitionValues":{},"size":1157}}

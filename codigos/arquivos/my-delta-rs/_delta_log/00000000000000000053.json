@@ -1,0 +1,2 @@
+{"commitInfo":{"timestamp":1774311443537,"operation":"DELETE","operationParameters":{"predicate":"id = 2"},"engineInfo":"delta-rs:py-1.5.0","operationMetrics":{"execution_time_ms":26,"num_added_files":0,"num_copied_rows":0,"num_deleted_rows":1,"num_removed_files":1,"rewrite_time_ms":0,"scan_time_ms":4},"clientVersion":"delta-rs.py-1.5.0","readVersion":52}}
+{"remove":{"path":"part-00000-ff785789-e153-4ab9-bd47-c29054950ecb-c000.snappy.parquet","dataChange":true,"deletionTimestamp":1774311443517,"extendedFileMetadata":true,"partitionValues":{},"size":1061}}

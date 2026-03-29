@@ -1,0 +1,13 @@
+# UPSERT (MERGE) - atualiza se id ja existir, insere caso contrário
+df_upsert = pd.DataFrame({"id":[2,5], "nome":["Ernande", "Luciene"], "idade":[58, 51]})
+(
+    dt.merge(
+        source=df_upsert,
+        predicate="t.id = s.id",
+        source_alias="s",
+        target_alias="t"
+    )
+    .when_matched_update(updates={"nome": "s.nome", "idade": "s.idade"})
+    .when_not_matched_insert(updates={"id": "s.id", "nome": "s.nome", "idade": "s.idade"})
+    .execute()
+)
