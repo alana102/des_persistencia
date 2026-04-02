@@ -3,6 +3,14 @@ from deltalake import DeltaTable, write_deltalake, WriterProperties
 from http import HTTPStatus
 from fastapi import FastAPI, HTTPException
 from models import Pessoa
+import logging
+
+# Configuração básica de logging
+logging.basicConfig(level=logging.INFO,
+                    format="%(asctime)s [%(levelname)s] %(name)s - %(message)s")
+
+# Cria um logger para a aplicação
+logger = logging.getLogger("fastapi.app")
 
 app = FastAPI()
 
@@ -11,10 +19,12 @@ wp = WriterProperties(compression="zstd")
 
 @app.get("/")
 def padrao():
+    logger.info("Rota '/' acessada.")
     return {"msg" : "Hello World"}
 
 @app.get("/pessoas/", response_model=list[Pessoa])
 def listar_pessoas():
+    logger.info("GET /pessoas/")
     dt = DeltaTable(path)
     lista = dt.to_pyarrow_table().to_pylist()
     return lista
@@ -22,6 +32,7 @@ def listar_pessoas():
 
 @app.get("/pessoas/{pessoa_id}", response_model=Pessoa)
 def ler_pessoa(pessoa_id: int):
+    logger.info(f"GET /pessoas/{pessoa_id}")
     dt = DeltaTable(path)
     pessoa = dt.to_pyarrow_table(filters=[("id", "=", pessoa_id)]).to_pylist()
 
@@ -36,10 +47,12 @@ def adicionar_pessoa(pessoa: Pessoa):
     pessoa_ver = dt.to_pyarrow_table(filters=[("id", "=", pessoa.id)]).to_pylist()
 
     if pessoa_ver:
+        logger.error(f"id {pessoa.id} já existe")
         raise HTTPException(status_code=400, detail="ID já existe")
 
     df_new = pd.DataFrame({"id":[pessoa.id], "nome":[pessoa.nome], "idade":[pessoa.idade]})
     write_deltalake(path, df_new, mode="append", writer_properties=wp)
+    logger.info(f"pessoa {pessoa} criada")
     return pessoa
 
 @app.put("/pessoas/{pessoa_id}", response_model=Pessoa)

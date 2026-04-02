@@ -6,7 +6,7 @@ df = pd.DataFrame({
     "cidade": ["Canindé", "Canindé"]
 })
 
-df.to_parquet("arquivos/dados.parquet", engine="pyarrow", compression="zstd", index=False)
+df.to_parquet("arquivos/dados.parquet", engine="pyarrow", compression="zstd", index=True)
 
 df_lido = pd.read_parquet("arquivos/dados.parquet", engine="pyarrow")
 
