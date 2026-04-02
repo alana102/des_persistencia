@@ -30,11 +30,13 @@ status = ["Disponível", "Alugado", "Em manutenção"]
 
 for i in range(10):
     id_atual = 0
+    next_id = 0
 
     with open(ultimo_id, "r") as id:
-        id_atual = int(id.read().strip())
+        id_atual = id.read().strip()
 
-    next_id = id_atual+1
+        if id_atual:
+            next_id = int(id_atual) + 1
 
     ano = fake.year()
     placa = fake.license_plate()
